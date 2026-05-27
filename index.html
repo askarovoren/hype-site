@@ -487,6 +487,48 @@
 
 
   <!-- ═══════════════════════════════════════════
+       NEWSLETTER
+  ═══════════════════════════════════════════ -->
+  <section class="newsletter" id="newsletter">
+    <div class="container">
+
+      <div class="newsletter-inner">
+        <div class="newsletter-text">
+          <h2 class="newsletter-heading">לעידכונים חשובים</h2>
+          <p class="newsletter-sub">טיפים על נשימה, בריאות נשית, ועדכונים על סדנאות — ישירות למייל שלכן.</p>
+        </div>
+
+        <form class="newsletter-form" id="newsletter-form" novalidate>
+          <div class="newsletter-field">
+            <label for="newsletter-email" class="visually-hidden">כתובת אימייל</label>
+            <input
+              type="email"
+              id="newsletter-email"
+              name="email"
+              placeholder="כתובת האימייל שלכן"
+              required
+              autocomplete="email"
+            />
+            <button type="submit" class="btn btn-primary newsletter-btn" id="newsletter-btn" aria-busy="false">
+              הירשמי
+            </button>
+          </div>
+          <p class="newsletter-error" id="newsletter-error" hidden>
+            משהו השתבש. אפשר לנסות שוב.
+          </p>
+        </form>
+
+        <div class="newsletter-success" id="newsletter-success" hidden>
+          <span class="newsletter-success-icon" aria-hidden="true">✓</span>
+          <p>!תודה — נשלח לכן עדכונים בקרוב</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
        FOOTER
   ═══════════════════════════════════════════ -->
   <footer class="site-footer">
@@ -649,6 +691,54 @@
           submitBtn.setAttribute('aria-busy', 'false');
           submitBtn.disabled = false;
           submitBtn.textContent = 'שליחה';
+        }
+      }
+    });
+    /* ─── Newsletter form ───────────────────────────────────── */
+    const newsletterForm    = document.getElementById('newsletter-form');
+    const newsletterBtn     = document.getElementById('newsletter-btn');
+    const newsletterError   = document.getElementById('newsletter-error');
+    const newsletterSuccess = document.getElementById('newsletter-success');
+
+    newsletterForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      newsletterError.hidden = true;
+
+      const email = newsletterForm.email.value.trim();
+      if (!email) return;
+
+      newsletterBtn.setAttribute('aria-busy', 'true');
+      newsletterBtn.disabled = true;
+      newsletterBtn.textContent = '...רגע';
+
+      const payload = {
+        type: 'newsletter',
+        email,
+        timestamp: new Date().toISOString(),
+      };
+
+      try {
+        if (!FORM_ENDPOINT) throw new Error('no-endpoint');
+
+        const res = await fetch(FORM_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(payload),
+        });
+        if (!res.ok) throw new Error('network');
+
+        newsletterForm.hidden = true;
+        newsletterSuccess.hidden = false;
+
+      } catch (err) {
+        if (err.message === 'no-endpoint') {
+          newsletterForm.hidden = true;
+          newsletterSuccess.hidden = false;
+        } else {
+          newsletterError.hidden = false;
+          newsletterBtn.setAttribute('aria-busy', 'false');
+          newsletterBtn.disabled = false;
+          newsletterBtn.textContent = 'הירשמי';
         }
       }
     });

@@ -861,7 +861,112 @@ p  { font-size: 1rem; color: var(--text-muted); }
   }
 }
 
-/* ── 14. Footer ───────────────────────────────────────────── */
+/* ── 14. Newsletter ───────────────────────────────────────── */
+.newsletter {
+  background: var(--plum);
+  padding-block: 72px;
+}
+
+.newsletter-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  text-align: center;
+}
+
+.newsletter-heading {
+  font-family: var(--font-heading);
+  font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 10px;
+}
+
+.newsletter-sub {
+  font-size: 1.025rem;
+  color: rgba(255,255,255,.75);
+  line-height: 1.7;
+  max-width: 480px;
+}
+
+.newsletter-form { width: 100%; max-width: 520px; }
+
+.newsletter-field {
+  display: flex;
+  gap: 0;
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  background: var(--white);
+  padding: 5px 5px 5px 20px;
+  align-items: center;
+}
+
+.newsletter-field input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 1rem;
+  color: var(--text);
+  direction: rtl;
+  text-align: right;
+  min-width: 0;
+  padding-block: 8px;
+}
+.newsletter-field input:focus { outline: none; }
+.newsletter-field input::placeholder { color: var(--text-muted); }
+
+.newsletter-btn {
+  padding: 12px 28px;
+  font-size: .95rem;
+  border-radius: var(--radius-pill);
+  flex-shrink: 0;
+}
+
+.newsletter-error {
+  font-size: .875rem;
+  color: #ffb3b3;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.newsletter-success {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--white);
+  font-size: 1.1rem;
+  font-family: var(--font-heading);
+  font-weight: 600;
+}
+
+.newsletter-success-icon {
+  width: 32px;
+  height: 32px;
+  background: rgba(255,255,255,.2);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+@media (min-width: 768px) {
+  .newsletter-inner {
+    flex-direction: row;
+    text-align: right;
+    justify-content: space-between;
+    align-items: center;
+    gap: 48px;
+  }
+  .newsletter-text { flex: 1; }
+  .newsletter-form { flex-shrink: 0; }
+  .newsletter-sub  { max-width: 100%; }
+}
+
+/* ── 15. Footer ───────────────────────────────────────────── */
 .site-footer {
   background: var(--plum);
   color: var(--white);
@@ -945,7 +1050,7 @@ p  { font-size: 1rem; color: var(--text-muted); }
   .footer-social { flex-direction: row; gap: 24px; }
 }
 
-/* ── 15. Accessibility ────────────────────────────────────── */
+/* ── 16. Accessibility ────────────────────────────────────── */
 :focus-visible {
   outline: 3px solid var(--plum);
   outline-offset: 3px;
@@ -966,7 +1071,7 @@ p  { font-size: 1rem; color: var(--text-muted); }
 }
 .skip-link:focus { top: 0; }
 
-/* ── 16. Utility helpers ──────────────────────────────────── */
+/* ── 17. Utility helpers ──────────────────────────────────── */
 .text-center { text-align: center; }
 .visually-hidden {
   position: absolute;
